@@ -1,0 +1,56 @@
+.body {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-width: 1380px;
+}
+
+
+.cats-card {
+    width: 225px;
+    height: 225px;
+
+    object-fit: cover;
+    margin: 0px 24px 52px 24px;
+    position: relative;
+}
+
+.cats-card:hover {
+    transform: scale(1.13); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+
+.cats-card img {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.cats-card__btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-image: url("../../../images/like.svg");
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+  opacity: 0; /* Начальная непрозрачность */
+  transition: opacity 0.3s ease; /* Плавное появление */
+  bottom: 19px;
+  right: 15px;
+}
+
+.cats-card__btn:hover {
+  background-image: url("../../../images/hoverLike.svg");
+}
+
+.cats-card__btn_active {
+  background-image: url("../../../images/clickLike.svg");
+}
+
+.cats-card:hover .cats-card__btn {
+  opacity: 1; 
+}
