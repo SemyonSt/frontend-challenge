@@ -34,7 +34,7 @@ header {
 nav {
     margin-left: 62px;
 }
-.header_brn {
+.header_btn {
     height: 64px;
     flex-shrink: 0;
     background: var(--Primary-500---Accent, #2196F3);
@@ -51,8 +51,12 @@ nav {
     padding: 22px;
 
 }
+.active{
+    background: var(--Primary-600, #1E88E5);
 
-.header_brn:hover {
+}
+
+.header_btn:hover {
     background: var(--Primary-600, #1E88E5);
 }
 
