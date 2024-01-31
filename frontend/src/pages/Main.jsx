@@ -7,43 +7,11 @@ const Main = () => {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const url = 'https://api.thecatapi.com/v1/images/search?limit=7';
+  const url = `https://api.thecatapi.com/v1/images/search?limit=15&page=${page}`;
   const apiKey = 'live_e9ngBAgHEUKtb9uhZTSWTZw505eTv7bX7I9tmAKxU9TYfZP52TqGXBjDnqSYBrIK';
 
   useEffect(() => {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'x-api-key': 'DEMO-API-KEY',
-    });
-
-    const requestOptions = {
-      method: 'GET',
-      headers,
-      redirect: 'follow',
-    };
-    // fetch(`https://api.thecatapi.com/v1/images/search?limit=15&page=${page}&order=DESC`, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     console.log(result);
-    //     const catUrls = result.map((cat) => cat.url);
-    //     setCats(catUrls);
-    //   })
-    //   .catch((error) => console.log('error', error));
-
     const loadMoreCats = async () => {
-      // const apiUrl = `https://api.thecatapi.com/v1/images/search?limit=15&page=${page}&order=DESC`;
-
-      // try {
-      //   const response = await fetch(apiUrl);
-      //   const data = await response.json();
-
-      //   // Обновление состояния котиков
-      //   setCats((prevCats) => [...prevCats, ...data]);
-      //   setPage((prevPage) => prevPage + 1);
-      // } catch (error) {
-      //   console.error('Ошибка при загрузке котиков:', error);
-      // }
-
       fetch(url, {
         headers: {
           'x-api-key': apiKey,
@@ -52,9 +20,7 @@ const Main = () => {
         .then((response) => response.json())
         .then((result) => {
           setLoading(true);
-          console.log(result);
           const catUrls = result.map((cat) => cat.url);
-          // setCats(catUrls);
           setCats((prevCats) => [...prevCats, ...catUrls]);
           setPage((prevPage) => prevPage + 1);
         })
@@ -62,31 +28,20 @@ const Main = () => {
         .finally(() => setLoading(false));
     };
 
-    // Если пользователь достиг конца страницы, загружаем еще котиков
-    // const handleScroll = () => {
-
-    //   if (
-    //     window.innerHeight + document.documentElement.scrollTop
-    //       >= document.documentElement.offsetHeight - 100
-    //       && !loading
-    //   ) {
-    //     setTimeout(() => {
-    //       loadMoreCats();
-    //     }, 5000);
-    //   }
-    // };
-    // window.addEventListener('scroll', handleScroll);
     loadMoreCats();
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
-  }, []);
 
-  useEffect(() => {
-    // Обработка изменения loading
-    if (!loading) {
-      // Добавьте здесь логику, которую вы хотите выполнить после загрузки данных
-    }
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+          >= document.documentElement.offsetHeight - 1
+          && !loading
+      ) {
+        console.log('hello');
+        loadMoreCats();
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   return (
@@ -109,3 +64,6 @@ const Main = () => {
 };
 
 export default Main;
+
+// https://github.com/alraskalov/frontend-challenge/blob/13e8682da98472733b4ee843568d4517ce3463d1/src/components/Header/Header.css#L13
+// https://github.com/smirnova-daria/favorite-cats/blob/a9258846fd9e9c0f817e83b8d77fad1a6906e68e/src/components/Navbar.vue#L9

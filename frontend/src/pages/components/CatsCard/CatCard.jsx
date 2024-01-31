@@ -3,7 +3,7 @@ import React from 'react';
 import './CatsCard.css';
 
 const CatsCard = ({ catUrls }) => {
-//   console.log('log2', catUrls);
+  console.log('log2', catUrls);
   return (
     <div className="cats-card">
       <img src={catUrls} alt="Котик" />
