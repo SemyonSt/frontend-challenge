@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import CatsCard from './CatsCard/CatCard';
 
-const LikeCats = ({ catUrls }) => {
+const LikeCats = () => {
   const initialDeals = useSelector((state) => state.likeCatsReducer.likedCats);
   console.log('log2', initialDeals);
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
 
-  const click = (url) => {
-    console.log('hello', url);
-    setIsActive(!isActive);
-  };
+  // const click = (url) => {
+  //   console.log('hello', url);
+  //   setIsActive(!isActive);
+  // };
 
   return (
     <section>
