@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
 import './header.css';
 import Cats from './components/Cats/Cats';
@@ -10,6 +11,8 @@ const Main = () => {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [activeButton, setActiveButton] = useState('all');
+
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const url = `https://api.thecatapi.com/v1/images/search?limit=15&page=${page}`;

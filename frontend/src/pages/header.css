@@ -51,7 +51,7 @@ nav {
     padding: 22px;
 
 }
-.active{
+.header_btn.active {
     background: var(--Primary-600, #1E88E5);
 
 }

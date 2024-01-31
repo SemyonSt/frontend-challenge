@@ -47,7 +47,7 @@
   background-image: url("../../../images/hoverLike.svg");
 }
 
-.cats-card__btn_active {
+.cats-card__btn.active {
   background-image: url("../../../images/clickLike.svg");
 }
 
