@@ -4,3 +4,13 @@
     flex-wrap: wrap;
     max-width: 1380px;
 }
+
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loading__cats {
+    margin-bottom: 31px;
+}

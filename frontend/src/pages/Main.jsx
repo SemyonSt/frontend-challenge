@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
 
 import './header.css';
 import Cats from './components/Cats/Cats';
 import LikeCats from './components/LikeCats';
+import getCats from './api/catApi';
 
 const Main = () => {
   const [cats, setCats] = useState([]);
@@ -12,28 +12,21 @@ const Main = () => {
   const [loading, setLoading] = useState(false);
   const [activeButton, setActiveButton] = useState('all');
 
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const url = `https://api.thecatapi.com/v1/images/search?limit=15&page=${page}`;
-  const apiKey = 'live_e9ngBAgHEUKtb9uhZTSWTZw505eTv7bX7I9tmAKxU9TYfZP52TqGXBjDnqSYBrIK';
 
   useEffect(() => {
     const loadMoreCats = async () => {
-      fetch(url, {
-        headers: {
-          'x-api-key': apiKey,
-        },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          setLoading(true);
-          const catUrls = result.map((cat) => cat.url);
-          setCats((prevCats) => [...prevCats, ...catUrls]);
-          setPage((prevPage) => prevPage + 1);
-        })
-        .catch((error) => console.log('error', error))
-        .finally(() => setLoading(false));
+      try {
+        const result = await getCats(page);
+        setLoading(true);
+        const catUrls = result.map((cat) => cat.url);
+        setCats((prevCats) => [...prevCats, ...catUrls]);
+        setPage((prevPage) => prevPage + 1);
+      } catch (error) {
+        console.log('error', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadMoreCats();
@@ -72,20 +65,17 @@ const Main = () => {
         </div>
       </header>
 
-      <main>
+      <div className="main">
 
         <Routes>
           <Route path="/" element={<Cats catUrls={cats} />} />
           <Route path="/likeCats" element={<LikeCats />} />
         </Routes>
 
-      </main>
+      </div>
     </div>
 
   );
 };
 
 export default Main;
-
-// https://github.com/alraskalov/frontend-challenge/blob/13e8682da98472733b4ee843568d4517ce3463d1/src/components/Header/Header.css#L13
-// https://github.com/smirnova-daria/favorite-cats/blob/a9258846fd9e9c0f817e83b8d77fad1a6906e68e/src/components/Navbar.vue#L9

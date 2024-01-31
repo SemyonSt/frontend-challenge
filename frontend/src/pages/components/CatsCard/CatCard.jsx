@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-// import { likeCat } from '../../../slices/likeCatsSlice';
+/* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions as likeActions } from '../../../slices/likeCatsSlice';
 
 import './CatsCard.css';
 
 const CatsCard = ({ catUrls }) => {
-  const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch();
+  const likedCats = useSelector((state) => state.likeCatsReducer.likedCats);
+
+  const isCatLiked = likedCats.includes(catUrls);
 
   const click = (url) => {
-    console.log('hello', url);
-    setIsActive(!isActive);
-    dispatch(likeActions.likeCat(url));
+    console.log('привет', url);
+
+    if (isCatLiked) {
+      dispatch(likeActions.removeLike(url));
+    } else {
+      dispatch(likeActions.likeCat(url));
+    }
   };
 
   return (
@@ -20,7 +26,7 @@ const CatsCard = ({ catUrls }) => {
       <img src={catUrls} alt="Котик" />
       <button
         type="button"
-        className={`cats-card__btn ${isActive ? 'active' : ''}`}
+        className={`cats-card__btn ${isCatLiked ? 'active' : ''}`}
         aria-label="Нажмите меня"
         onClick={() => click(catUrls)}
       />

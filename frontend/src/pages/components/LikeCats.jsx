@@ -1,21 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import CatsCard from './CatsCard/CatCard';
 
 const LikeCats = () => {
-  const initialDeals = useSelector((state) => state.likeCatsReducer.likedCats);
-  console.log('log2', initialDeals);
-  // const [isActive, setIsActive] = useState(false);
-
-  // const click = (url) => {
-  //   console.log('hello', url);
-  //   setIsActive(!isActive);
-  // };
+  const likedCats = useSelector((state) => state.likeCatsReducer.likedCats);
 
   return (
     <section>
       <div className="cats">
-        {initialDeals.map((url) => (
+        {likedCats.map((url) => (
           <CatsCard key={url} catUrls={url} />
         ))}
 

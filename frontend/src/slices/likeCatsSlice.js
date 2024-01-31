@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -10,6 +12,10 @@ const likeCatsSlice = createSlice({
   reducers: {
     likeCat: (state, { payload }) => {
       state.likedCats.push(payload);
+    },
+    removeLike: (state, { payload }) => {
+      const update = state.likedCats.filter((url) => url !== payload);
+      state.likedCats = update;
     },
   },
 });
