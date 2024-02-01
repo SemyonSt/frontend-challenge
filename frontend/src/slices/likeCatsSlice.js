@@ -17,6 +17,9 @@ const likeCatsSlice = createSlice({
       const update = state.likedCats.filter((url) => url !== payload);
       state.likedCats = update;
     },
+    setLikedCats: (state, action) => {
+      state.likedCats = action.payload;
+    },
   },
 });
 

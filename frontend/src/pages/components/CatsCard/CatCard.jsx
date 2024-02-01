@@ -1,25 +1,37 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions as likeActions } from '../../../slices/likeCatsSlice';
+import React, { useState, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { actions as likeActions } from '../../../slices/likeCatsSlice';
 
 import './CatsCard.css';
 
 const CatsCard = ({ catUrls }) => {
-  const dispatch = useDispatch();
-  const likedCats = useSelector((state) => state.likeCatsReducer.likedCats);
+  const [likedCats, setLikedCats] = useState([]);
+
+  useEffect(() => {
+    const savedLikedCats = JSON.parse(localStorage.getItem('likedCats')) || [];
+    setLikedCats(savedLikedCats);
+  }, []);
 
   const isCatLiked = likedCats.includes(catUrls);
 
   const click = (url) => {
-    console.log('привет', url);
-
     if (isCatLiked) {
-      dispatch(likeActions.removeLike(url));
+      const updatedLikedCats = likedCats.filter((catUrl) => catUrl !== url);
+      setLikedCats(updatedLikedCats);
     } else {
-      dispatch(likeActions.likeCat(url));
+      const updatedLikedCats = [...likedCats, url];
+      setLikedCats(updatedLikedCats);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('likedCats', JSON.stringify(likedCats));
+  }, [likedCats]);
+
+  useEffect(() => {
+    console.log(likedCats);
+  }, [likedCats]);
 
   return (
     <div className="cats-card">

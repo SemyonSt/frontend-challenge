@@ -9,10 +9,10 @@ const getCats = async (page) => {
       },
     });
     const data = await response.json();
-    return data; // Возвращаем данные в случае успеха
+    return data;
   } catch (error) {
     console.log('error', error);
-    throw error; // Генерируем ошибку для указания неудачи
+    throw error;
   }
 };
 
