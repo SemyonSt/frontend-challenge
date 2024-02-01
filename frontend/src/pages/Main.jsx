@@ -19,8 +19,9 @@ const Main = () => {
       try {
         const result = await getCats(page);
         setLoading(true);
-        const catUrls = result.map((cat) => cat.url);
-        setCats((prevCats) => [...prevCats, ...catUrls]);
+        // const catUrls = result.map((cat) => cat.url);
+        setCats((prevCats) => [...prevCats, ...result]);
+        console.log('catUrls', cats);
         setPage((prevPage) => prevPage + 1);
       } catch (error) {
         console.log('error', error);
@@ -68,7 +69,7 @@ const Main = () => {
       <div className="main">
 
         <Routes>
-          <Route path="/" element={<Cats catUrls={cats} />} />
+          <Route path="/" element={<Cats cats={cats} />} />
           <Route path="/likeCats" element={<LikeCats />} />
         </Routes>
 

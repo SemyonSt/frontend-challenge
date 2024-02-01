@@ -1,11 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { actions as likeActions } from '../../../slices/likeCatsSlice';
-
+// CatsCard.js
+import React, { useEffect, useState } from 'react';
 import './CatsCard.css';
 
-const CatsCard = ({ catUrls }) => {
+const CatsCard = ({ cats, onRemoveLike }) => {
   const [likedCats, setLikedCats] = useState([]);
 
   useEffect(() => {
@@ -13,37 +10,34 @@ const CatsCard = ({ catUrls }) => {
     setLikedCats(savedLikedCats);
   }, []);
 
-  const isCatLiked = likedCats.includes(catUrls);
+  const isCatLiked = likedCats.some((cat) => cat.url === cats.url);
 
-  const click = (url) => {
+  const click = (cat) => {
     if (isCatLiked) {
-      const updatedLikedCats = likedCats.filter((catUrl) => catUrl !== url);
-      setLikedCats(updatedLikedCats);
+      onRemoveLike(cat.id);
     } else {
-      const updatedLikedCats = [...likedCats, url];
+      const updatedLikedCats = [...likedCats, cat];
       setLikedCats(updatedLikedCats);
+      localStorage.setItem('likedCats', JSON.stringify(updatedLikedCats));
     }
   };
 
   useEffect(() => {
     localStorage.setItem('likedCats', JSON.stringify(likedCats));
-  }, [likedCats]);
-
-  useEffect(() => {
-    console.log(likedCats);
+    console.log('STORAAAGE', localStorage);
   }, [likedCats]);
 
   return (
     <div className="cats-card">
-      <img src={catUrls} alt="Котик" />
+      <img src={cats.url} alt="Котик" />
       <button
         type="button"
         className={`cats-card__btn ${isCatLiked ? 'active' : ''}`}
         aria-label="Нажмите меня"
-        onClick={() => click(catUrls)}
+        onClick={() => click(cats)}
       />
     </div>
-
   );
 };
+
 export default CatsCard;

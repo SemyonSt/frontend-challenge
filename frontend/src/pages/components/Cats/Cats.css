@@ -1,8 +1,12 @@
 .cats {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    max-width: 1380px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 224px);
+    grid-template-rows: 225px;
+    grid-gap: 52px 48px;
+    max-width: 1316px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 48px;
 }
 
 
