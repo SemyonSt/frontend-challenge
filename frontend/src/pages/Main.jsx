@@ -11,15 +11,26 @@ const Main = () => {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [activeButton, setActiveButton] = useState('all');
+  const [savedCats, setSavedCats] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const localCats = JSON.parse(localStorage.getItem('likedCats'));
+    if (localCats) {
+      setSavedCats(localCats);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('likedCats', JSON.stringify(savedCats));
+  }, [savedCats]);
 
   useEffect(() => {
     const loadMoreCats = async () => {
       try {
         const result = await getCats(page);
         setLoading(true);
-        // const catUrls = result.map((cat) => cat.url);
         setCats((prevCats) => [...prevCats, ...result]);
         console.log('catUrls', cats);
         setPage((prevPage) => prevPage + 1);
@@ -55,6 +66,12 @@ const Main = () => {
     }
   };
 
+  const handleCardLike = (card) => {
+    // eslint-disable-next-line no-param-reassign
+    card.isLiked = !card.isLiked;
+    setSavedCats(cats.filter((cat) => cat.isLiked === true));
+  };
+
   return (
     <div>
       <header>
@@ -69,8 +86,8 @@ const Main = () => {
       <div className="main">
 
         <Routes>
-          <Route path="/" element={<Cats cats={cats} />} />
-          <Route path="/likeCats" element={<LikeCats />} />
+          <Route path="/" element={<Cats cats={cats} onCardLike={handleCardLike} />} />
+          <Route path="/likeCats" element={<LikeCats cats={savedCats} onCardLike={handleCardLike} />} />
         </Routes>
 
       </div>
