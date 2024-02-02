@@ -69,7 +69,12 @@ const Main = () => {
   const handleCardLike = (card) => {
     // eslint-disable-next-line no-param-reassign
     card.isLiked = !card.isLiked;
-    setSavedCats(cats.filter((cat) => cat.isLiked === true));
+    setSavedCats((prevSavedCats) => {
+      const updatedCats = prevSavedCats.includes(card)
+        ? prevSavedCats.filter((c) => c !== card)
+        : [...prevSavedCats, card];
+      return updatedCats;
+    });
   };
 
   return (
