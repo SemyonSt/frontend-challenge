@@ -55,3 +55,22 @@ nav {
     background: var(--Primary-600, #1E88E5);
 }
 
+@media screen and (max-width: 359px) {
+    header {
+        height: 130px;
+    }
+    .header {
+        justify-content: center;
+    }
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 0px;
+    }
+    .header_btn {
+        width: 100%;
+    }
+}
+
