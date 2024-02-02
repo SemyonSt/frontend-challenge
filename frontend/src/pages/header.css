@@ -8,19 +8,6 @@
     line-height: normal;
 }
 
-/* main {
-    display: flex;
-    justify-content: center;
-} */
-
-.main {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-
-}
-
 header {
     width: 100%;
     display: flex;

@@ -9,7 +9,6 @@
     margin-bottom: 48px;
 }
 
-
 section {
     display: flex;
     flex-direction: column;
@@ -18,3 +17,4 @@ section {
 .loading__cats {
     margin-bottom: 31px;
 }
+
